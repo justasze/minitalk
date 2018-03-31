@@ -6,7 +6,7 @@
 /*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:44 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 14:45:09 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/03/31 15:21:22 by bcozic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,16 @@ char	*str;
 
 void handleSigusr1(int sig)
 {
-		if (k % 8 == 0)
-	ft_printf("\n");
-	write(1, str, 10);
-	ft_printf("1 %d %c ", k, str[k / 8]);
-	str[k / 8] = str[k / 8] & (str[k / 8] >> (k % 8) | (1 << (k % 8)));
+	str[k / 8] |= (0b10000000 >> ((k % 8)));
 	k++;
+
 }
 
 void handleSigusr2(int sig)
 {
-	if (k % 8 == 0)
-	ft_printf("\n");
-		write(1, str, 10);
-	ft_printf("0 %d %b ", k, str[k / 8]);
-	str[k / 8] = str[k / 8] & (str[k / 8] >> (k % 8) | (0xFC << (k % 8)));
+	str[k / 8] ^= (0b10000000 >> ((k % 8)));
 	k++;
 }
-
-// void nb(int sig)
-// {
-// 	ft_printf("++1\n");
-// 	k++;
-// }
-
-// void	create_str(int sig)
-// {
-// 	ft_printf("%d\n", k);
-// 	if (!(str = malloc(k)))
-// 		exit(0);
-// }
 
 int main(int ac, char **av) 
 {
@@ -69,11 +49,15 @@ int main(int ac, char **av)
 	//k = 0;
 	while(1)
 	{
-		if (k != 0 && str[((k) / 8)] == 0)
-			break ;
+		if (k != 0 && str[((k - 1) / 8)] == 0)
+		{
+			ft_printf("%s\n", str);
+			ft_memset(str, 0xFFFF, 10);
+			k = 0;
+		}
 		usleep(100);
 	}
-	ft_printf("%s\n", str);
+//	ft_printf("%s\n", str);
 	free(str);
 	return (0); 
 }

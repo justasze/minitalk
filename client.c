@@ -6,7 +6,7 @@
 /*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:43 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 14:24:50 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/03/31 15:10:08 by bcozic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ int main(int ac, char **av)
 	while (av[2][i])
 	{
 		k = -1;
+		ft_printf("%8hhb\n", av[2][i]);
 		while (++k < 8)
 		{
 			ft_printf("A");
-			if ((av[2][i] & (0b1000 >> k)) == 0)
+			if ((av[2][i] & (0b10000000 >> k)) == 0)
 			{
 				if (kill(pid, SIGUSR2) == -1)
 					return (1);
