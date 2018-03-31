@@ -3,56 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: justasze <justasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:43 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 15:10:08 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/03/31 16:00:11 by justasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "libft.h"
 
-int main(int ac, char **av)
+static void	transmit_bits(int *bit_shift, int pid, char *msg)
 {
-	int i;
-	int	k;
-	int	pid;
+	int	i;
 
-	if (ac != 3)
-		return (0);
 	i = 0;
-	pid = ft_atoi(av[1]);
-	// while (i--)
-	// {
-	// 	if (kill(pid, SIGUSR1) == -1)
-	// 		return (1);
-	// 	usleep(10);
-	// }
-	// if (kill(pid, SIGUSR2) == -1)
-	// 	return (1);
-	while (av[2][i])
+	while (msg[i])
 	{
-		k = -1;
-		ft_printf("%8hhb\n", av[2][i]);
-		while (++k < 8)
+		*bit_shift = -1;
+		while (++(*bit_shift) < 8)
 		{
-			ft_printf("A");
-			if ((av[2][i] & (0b10000000 >> k)) == 0)
+			if ((msg[i] & (0x80 >> *bit_shift)) == 0)
 			{
 				if (kill(pid, SIGUSR2) == -1)
-					return (1);
+					exit(1);
 			}
-			else
-				if (kill(pid, SIGUSR1) == -1)
-					return (1);
+			else if (kill(pid, SIGUSR1) == -1)
+				exit(1);
 			usleep(100);
 		}
 		i++;
 	}
-	k = -1;
-	while (++k < 8)
+}
+
+int			main(int ac, char **av)
+{
+	int	bit_shift;
+	int	pid;
+
+	if (ac != 3)
+		return (0);
+	pid = ft_atoi(av[1]);
+	transmit_bits(&bit_shift, pid, av[2]);
+	bit_shift = -1;
+	while (++bit_shift < 8)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 			return (1);
