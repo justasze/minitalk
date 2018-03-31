@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: justasze <justasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:43 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 17:30:29 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/03/31 17:53:44 by justasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
-#include "minitalk.h"
 
 static void	transmit_end_of_string(int pid)
 {

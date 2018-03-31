@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   serveur.c                                          :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: justasze <justasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:44 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 17:37:32 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/03/31 17:54:45 by justasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft.h"
 #include "minitalk.h"
 
-t_data			g_data;
+static t_data	g_data;
 
-void	handle_sigusr1(int sig)
+static void	handle_sigusr1(int sig)
 {
+	(void)sig;
 	g_data.str[g_data.bit / 8] |= (0x80 >> ((g_data.bit % 8)));
 	g_data.bit++;
 }
 
-void	handle_sigusr2(int sig)
+static void	handle_sigusr2(int sig)
 {
+	(void)sig;
 	g_data.str[g_data.bit / 8] ^= (0x80 >> ((g_data.bit % 8)));
 	g_data.bit++;
 }
 
-int		main(int ac, char **av)
+int			main(void)
 {
 	int		enter;
 
@@ -53,5 +51,4 @@ int		main(int ac, char **av)
 			ft_memset(g_data.str, 0xFF, SIZE);
 		}
 	}
-	return (0);
 }
