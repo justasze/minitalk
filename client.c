@@ -6,7 +6,7 @@
 /*   By: justasze <justasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:43 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 17:53:44 by justasze         ###   ########.fr       */
+/*   Updated: 2018/03/31 18:00:51 by justasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+
+static void	usage(char *name)
+{
+	ft_printf("usage: %s <pid> <msg>\n", name);
+}
 
 static void	transmit_end_of_string(int pid)
 {
@@ -63,7 +68,10 @@ int			main(int ac, char **av)
 	int	pid;
 
 	if (ac != 3)
+	{
+		usage(av[0]);
 		return (0);
+	}
 	pid = ft_atoi(av[1]);
 	transmit_message(pid, av[2]);
 	return (0);
