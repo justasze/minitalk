@@ -6,7 +6,7 @@
 /*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 15:44:23 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 16:00:21 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/03/31 17:24:00 by bcozic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ typedef struct	s_data
 	char	str[SIZE + 1];
 	size_t	bit;
 }				t_data;
-
-t_data			data;
 
 void			handle_sigusr2(int sig);
 void			handle_sigusr1(int sig);
