@@ -24,7 +24,6 @@ $(SERVER): $(SERVER_OBJ)
 	clang $(FLAGS) -o $(SERVER) $(SERVER_OBJ) libft/libft.a
 
 $(CLIENT): $(CLIENT_OBJ)
-	make -C libft
 	clang $(FLAGS) -o $(CLIENT) $(CLIENT_OBJ) libft/libft.a
 
 $(OBJS_DIR)%.o:%.c

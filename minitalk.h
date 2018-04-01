@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Ashbury <Ashbury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 15:44:23 by bcozic            #+#    #+#             */
-/*   Updated: 2018/04/01 14:11:37 by bcozic           ###   ########.fr       */
+/*   Updated: 2018/04/01 22:46:18 by Ashbury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define SIZE	15
+# define SIZE	2047
 
 typedef struct	s_data
 {
