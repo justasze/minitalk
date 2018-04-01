@@ -3,24 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justasze <justasze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bcozic <bcozic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 11:41:43 by bcozic            #+#    #+#             */
-/*   Updated: 2018/03/31 18:00:51 by justasze         ###   ########.fr       */
+/*   Updated: 2018/04/01 14:11:22 by bcozic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft.h"
+#include "minitalk.h"
 
 static void	usage(char *name)
 {
 	ft_printf("usage: %s <pid> <msg>\n", name);
 }
 
-static void	transmit_end_of_string(int pid)
+static void	transmit_end_of_string(int pid, int i)
 {
 	int	bit_shift;
 
@@ -29,7 +26,12 @@ static void	transmit_end_of_string(int pid)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 			exit(1);
-		usleep(100);
+		usleep(20);
+	}
+	if (i % SIZE == SIZE - 1)
+	{
+		usleep(80);
+		transmit_end_of_string(pid, i + 1);
 	}
 }
 
@@ -56,11 +58,13 @@ static void	transmit_message(int pid, char *msg)
 			}
 			else if (kill(pid, SIGUSR1) == -1)
 				exit(1);
-			usleep(100);
+			usleep(20);
 		}
 		i++;
+		if (i != 0 && i % SIZE == 0)
+			usleep(80);
 	}
-	transmit_end_of_string(pid);
+	transmit_end_of_string(pid, i);
 }
 
 int			main(int ac, char **av)
